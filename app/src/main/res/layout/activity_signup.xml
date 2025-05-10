@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:paddingTop="22dp"
+        >
+        <!-- Logo -->
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/unplug_logo"
+            android:layout_gravity="center"
+            />
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/oswald_bold"
+            android:text="Unplug"
+            android:textColor="#8157f1"
+            android:textSize="30sp"
+            android:layout_gravity="center"
+            android:paddingStart="10dp"
+            />
+    </LinearLayout>
+
+    <!-- Subtitle -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Take Back your focus."
+        android:layout_gravity="center"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        />
+
+    <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="6dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Full Name -->
+            <EditText
+                android:id="@+id/edtName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Full Name"
+                android:background="@drawable/rounded_edtext"
+                style="@style/CustomEditText"
+                android:padding="12dp"
+                android:inputType="textPersonName"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Email Address -->
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Email Address"
+                android:background="@drawable/rounded_edtext"
+                style="@style/CustomEditText"
+                android:padding="12dp"
+                android:inputType="textEmailAddress"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Password -->
+            <EditText
+                android:id="@+id/edtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Password"
+                android:background="@drawable/rounded_edtext"
+                style="@style/CustomEditText"
+                android:padding="12dp"
+                android:inputType="textPassword"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Focus Goals (Optional) -->
+            <EditText
+                android:id="@+id/edtGoals"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Confirm Password"
+                android:background="@drawable/rounded_edtext"
+                style="@style/CustomEditText"
+                android:padding="12dp"
+                android:layout_marginBottom="5dp"
+                android:inputType="text" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
+
+                <CheckBox
+                    android:id="@+id/checkbox_agree"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:buttonTint="@color/Lavender_Indigo"
+                    />
+
+                <TextView
+                    android:id="@+id/terms_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="I agree to the "
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    android:layout_gravity="center_vertical" />
+
+                <TextView
+                    android:id="@+id/terms_link"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Terms &amp; privacy policy"
+                    android:textColor="#8157f1"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnsignUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sign Up"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#8157f1"
+                android:background="@drawable/rounded_edtext"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:id="@+id/txtlog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Already have an account? "
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    android:layout_gravity="center_vertical" />
+
+                <TextView
+                    android:id="@+id/txtlink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Log in"
+                    android:textColor="#8157f1"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="#E9E9E9"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="or"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="#E9E9E9"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_edtext">
+                <ImageView
+                    android:id="@+id/img_google_logo"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/google_symbol"/>
+
+                <TextView
+                    android:id="@+id/txt_continue_with"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Continue with Google"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:paddingStart="8dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/unplugicon"
+        android:layout_gravity="center"
+        />
+
+</LinearLayout>
