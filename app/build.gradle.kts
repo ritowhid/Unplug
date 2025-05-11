@@ -51,5 +51,6 @@ dependencies {
 
     // card view
     implementation("androidx.cardview:cardview:1.0.0")
+    // Bottom navigation
 
 }

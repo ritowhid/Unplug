@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Unplug</string>
+    <string name="app_logo">App Logo</string>
+    <string name="notification_icon">Notifications</string>
+    <string name="profile_icon">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

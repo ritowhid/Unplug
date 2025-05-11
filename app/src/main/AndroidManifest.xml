@@ -34,7 +34,7 @@
         </activity> <!-- Main Activity - Accessible Internally -->
 
         <activity
-            android:name=".HomeActivity"
+            android:name=".MainActivity"
             android:exported="false" />
     </application>
 
