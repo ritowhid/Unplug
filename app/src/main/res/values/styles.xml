@@ -3,4 +3,8 @@
     <style name="CustomEditText" parent="Widget.AppCompat.EditText">
         <item name="android:textCursorDrawable">@drawable/custom_cursor</item>
     </style>
+
+    <style name="roundedImageView">
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

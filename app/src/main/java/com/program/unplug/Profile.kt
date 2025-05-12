@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.program.unplug.databinding.FragmentProfileBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +22,9 @@ class Profile : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    // Ensure you have the binding reference initialized for the fragment
+    private lateinit var binding: FragmentProfileBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -33,10 +37,38 @@ class Profile : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        /* Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false)
-    }
+        */
 
+        // Initialize the binding object
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
+        // You can now use the binding to access views directly
+        return binding.root
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Set up click listeners using the binding object
+        setupClickables(binding)
+    }
+    private fun setupClickables(binding: FragmentProfileBinding) {
+        val settingLayout = binding.settingLayout
+        val privacyLayout = binding.privacyPolicyLayout
+        val supportLayout = binding.helpSprtLayout
+        val logoutLayout = binding.signOutLayout
+
+        val layouts = listOf(settingLayout, privacyLayout, supportLayout, logoutLayout)
+
+        for (layout in layouts) {
+            layout.setOnClickListener {
+                layouts.forEach {
+                    it.setBackgroundResource(R.drawable.bg_icon_unselected)
+                }
+                layout.setBackgroundResource(R.drawable.bg_icon_selected)
+            }
+        }
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of
