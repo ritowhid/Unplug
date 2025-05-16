@@ -15,7 +15,7 @@
         android:id="@+id/imageView"
         android:layout_width="158dp"
         android:layout_height="151dp"
-        android:src="@drawable/unplug_logo"
+        android:src="@drawable/ic_unplug"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

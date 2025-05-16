@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.program.unplug"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -51,6 +51,6 @@ dependencies {
 
     // card view
     implementation("androidx.cardview:cardview:1.0.0")
-    // Bottom navigation
-
+    // Bar chart
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }

@@ -126,7 +126,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginLeft="10dp"
-        android:src="@drawable/settings_outline" />
+        android:src="@drawable/ic_settings_outline" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -152,7 +152,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/privacy_outline" />
+            android:src="@drawable/ic_privacy_outline" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -177,7 +177,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/help_support_outline" />
+            android:src="@drawable/ic_help_support_outline" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -203,7 +203,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/logout" />
+            android:src="@drawable/ic_logout" />
 
         <TextView
             android:layout_width="wrap_content"

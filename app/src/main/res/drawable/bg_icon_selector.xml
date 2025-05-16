@@ -7,5 +7,5 @@
     <item android:state_pressed="true" android:drawable="@drawable/bg_icon_pressed" />
 
     <!-- Default (unselected) -->
-    <item android:drawable="@drawable/bg_icon_default" />
+<!--    <item android:drawable="@drawable/bg_icon_default" />-->
 </selector>

@@ -19,7 +19,7 @@
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/unplug_logo"
+            android:src="@drawable/ic_unplug"
             android:layout_gravity="center"
             />
 
@@ -226,7 +226,7 @@
                     android:id="@+id/img_google_logo"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/google_symbol"/>
+                    android:src="@drawable/ic_google"/>
 
                 <TextView
                     android:id="@+id/txt_continue_with"
@@ -245,7 +245,7 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/unplugicon"
+        android:src="@drawable/ic_unplugicon"
         android:layout_gravity="center"
         />
 
