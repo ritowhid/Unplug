@@ -1,11 +1,18 @@
 package com.program.unplug
 
+
+import android.app.AppOpsManager
+import android.app.usage.UsageStats
+import android.app.usage.UsageStatsManager
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
@@ -13,6 +20,9 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.program.unplug.databinding.FragmentHomeBinding
+import java.util.Calendar
+import java.util.concurrent.TimeUnit
+
 
 class Home : Fragment() {
     private var _binding:  FragmentHomeBinding? = null
@@ -40,10 +50,11 @@ class Home : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // variables with their ids
-        barChart = binding.mpBarChart
+        // Request Usages Access permission if needed
+        requestUsageStatsPermission()
 
-        // calling get bar, chart data to add data to our array list
+        // Setup chart
+        barChart = binding.mpBarChart
         getBarChartData()
 
         // initializing bar data set
@@ -100,6 +111,13 @@ class Home : Fragment() {
 
         // setup circular progress bar
         setupProgressBar()
+
+        //show today's usage
+        updateTodayUsage()
+        // Update daily usage if permission is granted
+        if (hasUsageStatsPermission()) {
+            updateTodayUsage()
+        }
     }
 
     private fun getBarChartData() {
@@ -116,6 +134,9 @@ class Home : Fragment() {
         barEntries.add(BarEntry(6f, 60f))
     }
 
+
+
+    //======================================================================================
     private fun setupProgressBar() {
         val total = 100
         val completed = 75
@@ -125,8 +146,82 @@ class Home : Fragment() {
         binding.progressText.text = getString(R.string.completed)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+
+
+
+    //===========================================================================================
+    private fun requestUsageStatsPermission() {
+        if (!hasUsageStatsPermission()) {
+            startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+        }
+    }
+
+    private fun hasUsageStatsPermission(): Boolean {
+        val context = requireContext()
+        val appOps = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+
+        return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+            // For Android 10 (API 29) and above, use unsafeCheckOpNoThrow
+            appOps.unsafeCheckOpNoThrow(
+                AppOpsManager.OPSTR_GET_USAGE_STATS,
+                android.os.Process.myUid(),
+                context.packageName
+            ) == AppOpsManager.MODE_ALLOWED
+        } else {
+            // For older versions, fallback to deprecated checkOpNoThrow with suppression
+            @Suppress("DEPRECATION")
+            appOps.checkOpNoThrow(
+                AppOpsManager.OPSTR_GET_USAGE_STATS,
+                android.os.Process.myUid(),
+                context.packageName
+            ) == AppOpsManager.MODE_ALLOWED
+        }
+    }
+
+
+
+    //===================================================================================================================
+
+    private fun updateTodayUsage() {
+        val usageStatsManager = requireContext().getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
+
+        // get start and end times for today
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+        val startTime = calendar.timeInMillis
+        val endTime = System.currentTimeMillis()
+
+        // Query usage stats for today
+        val usageStatsList: List<UsageStats> = usageStatsManager.queryUsageStats(
+            UsageStatsManager.INTERVAL_DAILY,
+            startTime,
+            endTime
+        )
+        // Sum total usage time in miliseconds
+        var totalTimeMillis: Long = 0
+        for (usageStats in usageStatsList) {
+            totalTimeMillis += usageStats.totalTimeInForeground
+        }
+        // convert millis to hours and minutes
+        val hours = TimeUnit.MILLISECONDS.toHours(totalTimeMillis)
+        val minutes = TimeUnit.MILLISECONDS.toMinutes(totalTimeMillis) % 60
+
+        // Format time string like "2h 10m" or "45"
+        val usageString = when {
+            hours > 0 -> "${hours}h ${minutes}m"
+            minutes > 0 -> "${minutes}m"
+            else -> "0m"
+        }
+
+        // set the text to textView
+        binding.dailyUseTime.text = usageString
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

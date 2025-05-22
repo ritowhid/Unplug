@@ -84,9 +84,10 @@
                                 android:textSize="16sp" />
 
                             <TextView
+                                android:id="@+id/dailyUseTime"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="2h 10m"
+                                android:text="0m"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
                                 android:textColor="@color/black" />
