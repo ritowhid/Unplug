@@ -70,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="Full Name"
-                android:background="@drawable/rounded_edtext"
+                android:background="@drawable/rounded_corner"
                 style="@style/CustomEditText"
                 android:padding="12dp"
                 android:inputType="textPersonName"
@@ -82,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="Email Address"
-                android:background="@drawable/rounded_edtext"
+                android:background="@drawable/rounded_corner"
                 style="@style/CustomEditText"
                 android:padding="12dp"
                 android:inputType="textEmailAddress"
@@ -94,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="Password"
-                android:background="@drawable/rounded_edtext"
+                android:background="@drawable/rounded_corner"
                 style="@style/CustomEditText"
                 android:padding="12dp"
                 android:inputType="textPassword"
@@ -106,7 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="Confirm Password"
-                android:background="@drawable/rounded_edtext"
+                android:background="@drawable/rounded_corner"
                 style="@style/CustomEditText"
                 android:padding="12dp"
                 android:layout_marginBottom="5dp"
@@ -155,7 +155,7 @@
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#8157f1"
-                android:background="@drawable/rounded_edtext"
+                android:background="@drawable/rounded_corner"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 />
@@ -221,7 +221,7 @@
                 android:orientation="horizontal"
                 android:padding="10dp"
                 android:layout_gravity="center"
-                android:background="@drawable/rounded_edtext">
+                android:background="@drawable/rounded_corner">
                 <ImageView
                     android:id="@+id/img_google_logo"
                     android:layout_width="24dp"

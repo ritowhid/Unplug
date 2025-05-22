@@ -37,7 +37,7 @@ class Home : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // inflate the layout and bind to the _bindingg
+        // inflate the layout and bind to the _binding
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         // retrieve the entered data by the user
         return binding.root
