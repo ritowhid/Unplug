@@ -9,22 +9,27 @@ import com.program.unplug.databinding.FragmentProfileBinding
 
 class Profile : Fragment() {
 
-    private lateinit var binding: FragmentProfileBinding
-
+    private var _binding: FragmentProfileBinding? = null
+    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentProfileBinding.inflate(inflater, container, false)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupClickables()
+        setupClickable()
     }
 
-    private fun setupClickables() {
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null // avoid memory leaks
+    }
+
+    private fun setupClickable() {
         val layouts = listOf(
             binding.settingLayout,
             binding.privacyPolicyLayout,

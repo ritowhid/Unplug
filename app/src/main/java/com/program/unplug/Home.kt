@@ -18,16 +18,10 @@ class Home : Fragment() {
     private var _binding:  FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    // variables for our bar chart
+    // chart and data variables
     private lateinit var barChart: BarChart
-
-    // a variable for bar data
     private lateinit var barData: BarData
-
-    // variable for bar data set
     private lateinit var barDataSet: BarDataSet
-
-    // array list for bar data
     private lateinit var barEntries: ArrayList<BarEntry>
 
     // labels for X-axis
@@ -36,7 +30,7 @@ class Home : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // inflate the layout and bind to the _binding
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         // retrieve the entered data by the user
@@ -128,6 +122,11 @@ class Home : Fragment() {
 
         binding.progressBar.max = total
         binding.progressBar.progress = completed
-        binding.progressText.text = "$completed%"
+        binding.progressText.text = getString(R.string.completed)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
