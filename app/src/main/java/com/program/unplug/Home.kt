@@ -1,6 +1,5 @@
 package com.program.unplug
 
-
 import android.app.AppOpsManager
 import android.app.usage.UsageStats
 import android.app.usage.UsageStatsManager
@@ -20,12 +19,11 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.program.unplug.databinding.FragmentHomeBinding
-import java.util.Calendar
+import java.util.*
 import java.util.concurrent.TimeUnit
 
-
 class Home : Fragment() {
-    private var _binding:  FragmentHomeBinding? = null
+    private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     // chart and data variables
@@ -74,7 +72,6 @@ class Home : Fragment() {
         barChart.data = barData
 
         barChart.apply {
-
             // animation
             animateY(1000)
 
@@ -134,8 +131,6 @@ class Home : Fragment() {
         barEntries.add(BarEntry(6f, 60f))
     }
 
-
-
     //======================================================================================
     private fun setupProgressBar() {
         val total = 100
@@ -143,13 +138,11 @@ class Home : Fragment() {
 
         binding.progressBar.max = total
         binding.progressBar.progress = completed
-        binding.progressText.text = getString(R.string.completed)
+        binding.progressText.text = "$completed%"
     }
 
-
-
-
     //===========================================================================================
+    // Uses Permission
     private fun requestUsageStatsPermission() {
         if (!hasUsageStatsPermission()) {
             startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
@@ -178,47 +171,72 @@ class Home : Fragment() {
         }
     }
 
-
-
     //===================================================================================================================
-
+    // Today Use Time Update
     private fun updateTodayUsage() {
         val usageStatsManager = requireContext().getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
+        val packageManager = requireContext().packageManager
 
-        // get start and end times for today
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
+        // Start of today
+        val calendar = Calendar.getInstance().apply {
+            timeZone = TimeZone.getDefault()
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }
+
         val startTime = calendar.timeInMillis
         val endTime = System.currentTimeMillis()
 
-        // Query usage stats for today
-        val usageStatsList: List<UsageStats> = usageStatsManager.queryUsageStats(
+        val usageStatsList = usageStatsManager.queryUsageStats(
             UsageStatsManager.INTERVAL_DAILY,
             startTime,
             endTime
         )
-        // Sum total usage time in miliseconds
+
         var totalTimeMillis: Long = 0
+
         for (usageStats in usageStatsList) {
-            totalTimeMillis += usageStats.totalTimeInForeground
+            val packageName = usageStats.packageName
+
+            if (usageStats.lastTimeUsed < startTime || usageStats.totalTimeInForeground <= 1000) continue
+
+            try {
+                val appInfo = packageManager.getApplicationInfo(packageName, 0)
+                val isSystemApp = (appInfo.flags and android.content.pm.ApplicationInfo.FLAG_SYSTEM) != 0
+                val launchIntent = packageManager.getLaunchIntentForPackage(packageName)
+
+                // Skip system apps, non-launchable apps, and keyboards
+                if (isSystemApp || launchIntent == null || isKeyboardApp(packageName)) continue
+
+                totalTimeMillis += usageStats.totalTimeInForeground
+            } catch (e: Exception) {
+                // ignore errors
+            }
         }
-        // convert millis to hours and minutes
+
         val hours = TimeUnit.MILLISECONDS.toHours(totalTimeMillis)
         val minutes = TimeUnit.MILLISECONDS.toMinutes(totalTimeMillis) % 60
 
-        // Format time string like "2h 10m" or "45"
         val usageString = when {
             hours > 0 -> "${hours}h ${minutes}m"
             minutes > 0 -> "${minutes}m"
             else -> "0m"
         }
 
-        // set the text to textView
         binding.dailyUseTime.text = usageString
     }
+
+    private fun isKeyboardApp(packageName: String): Boolean {
+        return packageName.contains("keyboard") || packageName in listOf(
+            "com.google.android.inputmethod.latin",  // Gboard
+            "com.microsoft.swiftkey",
+            "com.baidu.input",
+            "com.samsung.android.honeyboard"
+        )
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
